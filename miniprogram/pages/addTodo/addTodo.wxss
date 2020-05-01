@@ -2,3 +2,7 @@
 van-tag{
   margin-left: 40rpx;
 }
+
+.countDown{
+  margin-right: 80rpx;
+}

@@ -1,6 +1,6 @@
 <view class="dafault">
   <block wx:for="{{examDafault}}" wx:key="index">
-    <van-cell value="倒计数：{{item.countDown}}日" label="{{item.examTime}} {{item.examIntro}}">
+    <van-cell value="倒计数：{{item.countDown}}日  " label="{{item.examTime}} {{item.examIntro}}">
       <van-icon slot="icon" name="records" color="#2588c4" size="25px" />
       <view slot="title">
         <view class="van-cell-text">{{item.examSubject}}</view>
@@ -16,12 +16,16 @@
 
 <view class="custom">
   <block wx:for="{{target}}" wx:key="index">
-    <van-cell value="倒计数：{{item.countDown}}日" label="{{item.targetTime}} {{item.targetIntro}}">
+    <van-cell value="倒计数：{{item.countDown}}日  " label="{{item.targetTime}} {{item.targetIntro}}">
+      <!-- <van-icon id="{{item._id}}" slot="right-icon" bind:click="onIconClick" name="delete" size="30px" color="#f44336" /> -->
       <van-icon slot="icon" name="todo-list-o" color="#2588c4" size="25px" />
       <view slot="title">
         <view class="van-cell-text">{{item.targetName}}</view>
       </view>
     </van-cell>
+    <!-- <van-dialog use-slot title="" message="是否删除：{{item.targetName}}" show="true"  bind:close="onClose" bind:getuserinfo="getUserInfo">
+    </van-dialog> -->
+    <van-dialog id="van-dialog" />
   </block>
 </view>
 
@@ -48,10 +52,3 @@
 <view wx:else>
   <van-button disabled="true" icon="passed" size="large" hairline color="#2588c4">提交</van-button>
 </view>
-
-<van-swipe-cell right-width="{{ 65 }}">
-  <van-cell-group>
-    <van-cell title="单元格" value="内容" />
-  </van-cell-group>
-  <view slot="right">删除</view>
-</van-swipe-cell>

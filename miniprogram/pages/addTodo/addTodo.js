@@ -3,6 +3,7 @@ const db = wx.cloud.database()
 const _ = db.command
 const exams = db.collection('ExamDafault')
 const target = db.collection('Target')
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog.js';
 Page({
 
   /**
@@ -75,6 +76,9 @@ Page({
 
   },
 
+  /**
+   * 请求ExamDafault数据库,获取数据
+   */
   reqDafaultExam: function() {
     exams.where({
         examTime: _.gte(new Date)
@@ -93,6 +97,10 @@ Page({
         })
       })
   },
+
+  /**
+   * 请求Target数据库,获取数据
+   */
   reqTarget: function() {
     target.get()
       .then(res => {
@@ -111,6 +119,9 @@ Page({
       })
   },
 
+  /**
+   * 监听Target数据的输入
+   */
   onInput(event) {
     this.setData({
       currentDate: event.detail
@@ -129,12 +140,20 @@ Page({
       })
     }
   },
+
+  /**
+   * 监听Target时间的输入
+   */
   onDateChange(event) {
     console.log(event.detail)
     this.setData({
       targetDate: event.detail.value
     })
   },
+
+  /**
+   * 向Target数据库添值
+   */
   addTarget() {
     console.log("被调用")
     target.add({
@@ -145,10 +164,33 @@ Page({
         creatTime: new Date
       }
     }).then(res => {
-      reqTarget()
+      this.reqTarget()
       console.log(res)
     }).catch(err => {
       console.log(err)
     })
+  },
+
+  /**
+   * 通过_id删除Taget数据库中的值
+   */
+  deleteTarget(id) {
+    target.doc(id).remove().then(this.reqTarget())
+  },
+
+  /**
+   * 监听删除Target的指令
+   */
+  onIconClick(res) {
+    let id = res.target.id
+    Dialog.confirm({
+      title: '标题',
+      message: '弹窗内容'
+    }).then(() => {
+      // on confirm
+    }).catch(() => {
+      // on cancel
+    });
+    // this.deleteTarget(id)
   }
 })

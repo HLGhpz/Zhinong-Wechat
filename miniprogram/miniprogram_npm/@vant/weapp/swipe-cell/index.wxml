@@ -3,7 +3,7 @@
   data-key="cell"
   catchtap="onClick"
   bindtouchstart="startDrag"
-  catchtouchmove="{{ catchMove ? 'noop' : '' }}"
+  catchtouchmove="{{ dir ? 'onDrag' : '' }}"
   capture-bind:touchmove="onDrag"
   bindtouchend="endDrag"
   bindtouchcancel="endDrag"
