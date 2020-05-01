@@ -9,8 +9,49 @@
   </block>
 </view>
 
-<van-cell title="单元格">
+<!-- <van-cell title="单元格">
   <van-icon slot="right-icon" name="search" class="custom-icon" />
-</van-cell>
+</van-cell> -->
+<van-divider contentPosition="center" customStyle="color: #2588c4;border-color: #2588c4;font-size: 15px;">自定义</van-divider>
 
-<button bindtap="testAdd">添加数据</button>
+<view class="custom">
+  <block wx:for="{{target}}" wx:key="index">
+    <van-cell value="倒计数：{{item.countDown}}日" label="{{item.targetTime}} {{item.targetIntro}}">
+      <van-icon slot="icon" name="todo-list-o" color="#2588c4" size="25px" />
+      <view slot="title">
+        <view class="van-cell-text">{{item.targetName}}</view>
+      </view>
+    </van-cell>
+  </block>
+</view>
+
+<van-cell-group>
+  <van-field required name="EventName" id="name" label="事件名称" value="{{targetName}}" placeholder="请输入事件名称" bind:blur="onCustomChange" />
+
+  <view class="section">
+    <!-- <view class="section__title">目标日期</view> -->
+    <picker mode="date" value="{{date}}" start="2020-01-01" end="2050-01-01" bindchange="onDateChange">
+      <view class="picker">
+        <van-field required value="{{targetDate}}" label="目标日期" border="{{false}}" placeholder="{{targetDate}}" />
+      </view>
+    </picker>
+  </view>
+
+  <van-field name="EventIntro" id="intro" label="事件简介" value="{{targetIntro}}" placeholder="请输入事件简介" bind:blur="onCustomChange" />
+</van-cell-group>
+
+
+
+<view wx:if="{{targetDate&&targetName}}">
+  <van-button bind:click="addTarget" icon="passed" size="large" hairline color="#2588c4">提交</van-button>
+</view>
+<view wx:else>
+  <van-button disabled="true" icon="passed" size="large" hairline color="#2588c4">提交</van-button>
+</view>
+
+<van-swipe-cell right-width="{{ 65 }}">
+  <van-cell-group>
+    <van-cell title="单元格" value="内容" />
+  </van-cell-group>
+  <view slot="right">删除</view>
+</van-swipe-cell>

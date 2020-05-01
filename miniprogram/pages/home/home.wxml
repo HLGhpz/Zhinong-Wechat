@@ -5,3 +5,5 @@
   <text>{{item.classes}}</text>
   <text>{{item.meanVale}}</text>
 </view>
+
+

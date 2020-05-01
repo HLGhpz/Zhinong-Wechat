@@ -2,7 +2,7 @@
 const db = wx.cloud.database()
 const _ = db.command
 const exams = db.collection('ExamDafault')
-const todos = db.collection('Todos')
+const target = db.collection('Target')
 Page({
 
   /**
@@ -10,7 +10,11 @@ Page({
    */
   data: {
     examDafault: [],
-    // today: new Date
+    target: [],
+    targetDate: "",
+    targetName: "",
+    targetIntro: "",
+    minDate: new Date().getTime(),
   },
 
   /**
@@ -19,6 +23,7 @@ Page({
   onLoad: function(options) {
     // this.getToday()
     this.reqDafaultExam();
+    this.reqTarget();
   },
 
   /**
@@ -70,40 +75,80 @@ Page({
 
   },
 
-  // getToday: function() {
-  //   let date = new Date;
-  //   let today = new Date(date.toLocaleDateString())
-  //   this.setData({
-  //     today: today
-  //   })
-  // },
-
   reqDafaultExam: function() {
     exams.where({
         examTime: _.gte(new Date)
       }).get()
       .then(res => {
         console.log(res.data)
-        res.data.map((value, index)=>{
+        res.data.map((value, index) => {
           let nowDate = new Date
           let diffDate = value.examTime - nowDate
-          let days = Math.floor(diffDate/ (24 * 3600 * 1000))
+          let days = Math.floor(diffDate / (24 * 3600 * 1000))
           value.examTime = value.examTime.toLocaleDateString()
           value.countDown = days
         })
-        console.log(res.data)
         this.setData({
           examDafault: res.data
         })
       })
   },
-  testAdd: function() {
-    exams.add({
+  reqTarget: function() {
+    target.get()
+      .then(res => {
+        console.log(res.data)
+        res.data.map((value, index) => {
+          let nowDate = new Date
+          let diffDate = value.targetTime - nowDate
+          let days = Math.floor(diffDate / (24 * 3600 * 1000))
+          value.targetTime = value.targetTime.toLocaleDateString()
+          value.countDown = days
+        })
+        console.log(res.data)
+        this.setData({
+          target: res.data
+        })
+      })
+  },
+
+  onInput(event) {
+    this.setData({
+      currentDate: event.detail
+    });
+    console.log(event.detail)
+  },
+  onCustomChange(event) {
+    if (event.target.id == "name") {
+      this.setData({
+        targetName: event.detail.value,
+      })
+    }
+    if (event.target.id == "intro") {
+      this.setData({
+        targetIntro: event.detail.value
+      })
+    }
+  },
+  onDateChange(event) {
+    console.log(event.detail)
+    this.setData({
+      targetDate: event.detail.value
+    })
+  },
+  addTarget() {
+    console.log("被调用")
+    target.add({
       data: {
-        examTime: new Date("2019-01-01")
+        targetTime: new Date(this.data.targetDate),
+        targetName: this.data.targetName,
+        targetIntro: this.data.targetIntro,
+        creatTime: new Date
       }
     }).then(res => {
-      console.log("添加成功")
+      reqTarget()
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
     })
   }
 })
