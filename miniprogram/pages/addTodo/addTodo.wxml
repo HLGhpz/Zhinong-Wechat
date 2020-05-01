@@ -1,0 +1,16 @@
+<view class="dafault">
+  <block wx:for="{{examDafault}}" wx:key="index">
+    <van-cell value="倒计数：{{item.countDown}}日" label="{{item.examTime}} {{item.examIntro}}">
+      <van-icon slot="icon" name="records" color="#2588c4" size="25px" />
+      <view slot="title">
+        <view class="van-cell-text">{{item.examSubject}}</view>
+      </view>
+    </van-cell>
+  </block>
+</view>
+
+<van-cell title="单元格">
+  <van-icon slot="right-icon" name="search" class="custom-icon" />
+</van-cell>
+
+<button bindtap="testAdd">添加数据</button>

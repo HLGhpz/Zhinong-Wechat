@@ -1,0 +1,4 @@
+/* pages/addTodo/addTodo.wxss */
+van-tag{
+  margin-left: 40rpx;
+}

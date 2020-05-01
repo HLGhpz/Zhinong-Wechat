@@ -5,15 +5,14 @@ cloud.init({
 
 const db = cloud.database()
 // 云函数入口函数
-exports.main = async (event, context) => {
-  db.collection("ClassSalary").get({
-    success(res){
-      console.log(res.data)
-      return res
-    },
-    fail(err){
-      console.log(err)
-      return err
-    }
+exports.main = async(event, context) => {
+  return db.collection("ClassSalary").get()
+  .then(res => {
+    console.log(res)
+    return res
+  })
+  .catch(err => {
+    console.log(err)
+    return err
   })
 }

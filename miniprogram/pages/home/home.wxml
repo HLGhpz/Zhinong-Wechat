@@ -1,3 +1,7 @@
-<button bindtap="addData">添加数据</button>
-<button bindtap="getData">查询数据</button>
-<button bindtap="getOpenId">获取OPENID</button>
+<van-button type="primary" bindtap="getData" >查询数据</van-button>
+<van-button type="primary" bindtap="getActive" >查询活动</van-button>
+
+<view wx:for="{{classSalary}}" wx:key="index">
+  <text>{{item.classes}}</text>
+  <text>{{item.meanVale}}</text>
+</view>
