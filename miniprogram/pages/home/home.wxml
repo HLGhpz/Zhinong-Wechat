@@ -1,5 +1,5 @@
-<van-button type="primary" bindtap="getData" >查询数据</van-button>
-<van-button type="primary" bindtap="getActive" >查询活动</van-button>
+<!-- <van-button type="primary" bindtap="getData" >查询数据</van-button> -->
+<van-button type="primary" bindtap="reqActive" >查询活动</van-button>
 
 <view wx:for="{{classSalary}}" wx:key="index">
   <text>{{item.classes}}</text>

@@ -64,10 +64,10 @@ Page({
   onShareAppMessage: function() {
 
   },
-  getActive(){
+  reqActive() {
     wx.cloud.callFunction({
       name: "reqActivity"
-    }).then(res=>{
+    }).then(res => {
       console.log(res)
     })
   },
@@ -75,11 +75,11 @@ Page({
   getData() {
     wx.cloud.callFunction({
       name: "getClassSalary",
-    }).then(res=>{
+    }).then(res => {
       this.setData({
         classSalary: res.result.data
       })
-    }).catch(err=>{
+    }).catch(err => {
 
     })
   }
